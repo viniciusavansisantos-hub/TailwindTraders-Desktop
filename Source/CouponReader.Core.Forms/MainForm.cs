@@ -1,68 +1,16 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Forms;
-using CouponReader.Common.Services;
-using CouponReader.Common.ViewModels;
-
-namespace CouponReader
+using System.Data.SqlClient;
+namespace CadastroClienteApp 
 {
-    public partial class MainForm : Form
+    public partial class Mainform : Form
     {
-        public MainForm()
-        {
-            InitializeComponent();
-
-            InitButtons();
-
-            ShowCouponDetails(false);
-        }
-
-        private void InitButtons()
-        {
-            scanButton.Click += new EventHandler(OnScanButtonClick);
-            clearButton.Click += new EventHandler(OnClearButtonClick);
-        }
-
-        private void OnScanButtonClick(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtInputCode.Text))
-            {
-                return;
-            }
-
-            var coupon = CouponsService.Instance.FindCouponByCode(txtInputCode.Text);
-
-            if (coupon == null)
-            {
-                return;
-            }
-
-            couponDetails.Init();
-            couponDetails.DataContext = new CouponViewModel(coupon);
-
-            ShowCouponDetails(true);
-        }
-
-        private void OnClearButtonClick(object sender, EventArgs e)
-        {
-            txtInputCode.Text = string.Empty;
-
-            ShowCouponDetails(false);
-        }
-
-        private void OnHistoryButtonClick(object sender, EventArgs e)
-        {
-            couponsHistory.Visible = true;
-            couponsHistoryControl.Visibility = Visibility.Visible;
-        }
-
-        private void ShowCouponDetails(bool show)
-        {
-            couponsHistoryControl.DataContext = new CouponViewModel(null);
-            couponsHistoryControl.Visibility = Visibility.Collapsed;
-            couponsHistory.Visible = false;
-
-            couponDetails.Visibility = show ? Visibility.Visible : Visibility.Collapsed;
-        }
-    }
+    public Mainform () {
+    initializeComponent()};
+    }    
 }
+
+ private void btnSalvar_click(object sander, EventArgs e)
+ {
+     salvarDadosClientes(txtNome.Text, txtEndereco.Text, txtTelefone.text, txtEmail.text);
